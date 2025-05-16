@@ -9,4 +9,3 @@ class MercadoLivroApplication
 fun main(args: Array<String>) {
 	runApplication<MercadoLivroApplication>(*args)
 }
-
