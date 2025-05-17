@@ -1,44 +1,44 @@
 package br.com.jpegsinng.mercadolivro.service
 
-import br.com.jpegsinng.mercadolivro.controller.request.PostCustomerRequest
-import br.com.jpegsinng.mercadolivro.controller.request.PutCustomerRequest
 import br.com.jpegsinng.mercadolivro.model.CustomerModel
+import br.com.jpegsinng.mercadolivro.repository.CustomerRepository
 import org.springframework.stereotype.Service
+import java.lang.Exception
 
 @Service
-class CustomerService {
-    val customers = mutableListOf<CustomerModel>()
+class CustomerService(
+    val customerRepository: CustomerRepository
+) {
 
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
-            return customers.filter { it.name.contains(name, true) }
+            return customerRepository.findByNameContaining(it)
         }
-        return customers
+        return customerRepository.findAll().toList()
+    }
+
+    fun create(customer: CustomerModel) {
+        customerRepository.save(customer)
     }
 
     fun getCustomer(id: Int): CustomerModel {
-        return customers.filter { it.id == id }.first()
+        return customerRepository.findById(id).orElseThrow()
     }
 
-    fun createCustomer(customer: CustomerModel) {
-        val id = if (customers.isEmpty()) {
-            1
-        } else {
-            customers.last().id!!.toInt() + 1
+    fun update(customer: CustomerModel) {
+        if(!customerRepository.existsById(customer.id!!)){
+            throw Exception()
         }
-        customer.id = id
-        customers.add(customer)
+
+        customerRepository.save(customer)
     }
 
-    fun updateCustomer(customer: CustomerModel) {
-        customers.filter { it.id == customer.id }.first().let {
-            it.name = customer.name
-            it.email = customer.email
+    fun delete(id: Int) {
+        if(!customerRepository.existsById(id)){
+            throw Exception()
         }
-    }
 
-    fun deleteCustomer(id: Int) {
-        customers.removeIf { it.id == id }
+        customerRepository.deleteById(id)
     }
 
 }

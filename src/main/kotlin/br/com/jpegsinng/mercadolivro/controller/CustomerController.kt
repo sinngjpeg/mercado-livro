@@ -9,9 +9,9 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("customers")
+@RequestMapping("customer")
 class CustomerController(
-    val customerService: CustomerService
+    val customerService : CustomerService
 ) {
 
     @GetMapping
@@ -19,26 +19,27 @@ class CustomerController(
         return customerService.getAll(name)
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun create(@RequestBody customer: PostCustomerRequest) {
+        customerService.create(customer.toCustomerModel())
+    }
+
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: Int): CustomerModel {
         return customerService.getCustomer(id)
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun createCustomer(@RequestBody customer: PostCustomerRequest) {
-        customerService.createCustomer(customer.toCustomerModel())
-    }
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun updateCustomer(@PathVariable id: Int, @RequestBody customer: PutCustomerRequest) {
-        customerService.updateCustomer(customer.toCustomerModel(id))
+    fun update(@PathVariable id: Int, @RequestBody customer: PutCustomerRequest) {
+        customerService.update(customer.toCustomerModel(id))
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteCustomer(@PathVariable id: Int) {
-        return customerService.deleteCustomer(id)
+    fun delete(@PathVariable id: Int) {
+        customerService.delete(id)
     }
+
 }

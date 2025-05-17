@@ -8,11 +8,12 @@ import jakarta.persistence.Id
 
 @Entity(name = "customer")
 data class CustomerModel(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null,
-    @Column(name = "name")
+    @Column
     var name: String,
-    @Column(name = "email")
+    @Column
     var email: String
 )
