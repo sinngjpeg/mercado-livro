@@ -9,5 +9,5 @@ data class BookResponse(
     var name: String,
     var price: BigDecimal,
     var customer: CustomerModel? = null,
-    val status: BookStatus? = null
+    var status: BookStatus? = null
 )

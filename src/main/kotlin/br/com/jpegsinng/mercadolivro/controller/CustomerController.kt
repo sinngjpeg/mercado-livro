@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("customer")
 class CustomerController(
-    val customerService: CustomerService
+    val customerService : CustomerService
 ) {
 
     @GetMapping
     fun getAll(@RequestParam name: String?): List<CustomerResponse> {
-        return customerService.getAll(name).map {
-            it.toResponse()
-        }
+        return customerService.getAll(name).map { it.toResponse() }
     }
 
     @PostMapping

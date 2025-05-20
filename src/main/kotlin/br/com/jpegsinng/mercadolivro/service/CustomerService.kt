@@ -31,13 +31,17 @@ class CustomerService(
         if (!customerRepository.existsById(customer.id!!)) {
             throw Exception()
         }
+
         customerRepository.save(customer)
     }
 
     fun delete(id: Int) {
         val customer = findById(id)
         bookService.deleteByCustomer(customer)
+
         customer.status = CustomerStatus.INATIVO
+
         customerRepository.save(customer)
     }
+
 }
