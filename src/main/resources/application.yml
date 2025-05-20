@@ -6,5 +6,8 @@ spring:
     url: jdbc:mysql://localhost:3306/mercadolivro?createDatabaseIfNotExist=true
     username: root
     password: root
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jackson:
     default-property-inclusion: non_null
