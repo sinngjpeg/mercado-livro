@@ -5,16 +5,17 @@ import br.com.jpegsinng.mercadolivro.controller.request.PostCustomerRequest
 import br.com.jpegsinng.mercadolivro.controller.request.PutBookRequest
 import br.com.jpegsinng.mercadolivro.controller.request.PutCustomerRequest
 import br.com.jpegsinng.mercadolivro.enums.BookStatus
+import br.com.jpegsinng.mercadolivro.enums.CustomerStatus
 import br.com.jpegsinng.mercadolivro.model.BookModel
 import br.com.jpegsinng.mercadolivro.model.CustomerModel
 import java.awt.print.Book
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {
-    return CustomerModel(name = this.name, email = this.email)
+    return CustomerModel(name = this.name, email = this.email, status = CustomerStatus.ATIVO)
 }
 
-fun PutCustomerRequest.toCustomerModel(id: Int): CustomerModel {
-    return CustomerModel(id = id, name = this.name, email = this.email)
+fun PutCustomerRequest.toCustomerModel(previousValue: CustomerModel): CustomerModel {
+    return CustomerModel(id = previousValue.id, name = this.name, email = this.email, status = previousValue.status)
 }
 
 fun PostBookRequest.toBookModel(customer: CustomerModel): BookModel {
