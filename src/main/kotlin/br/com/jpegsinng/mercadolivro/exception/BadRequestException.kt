@@ -1,6 +1,6 @@
 package br.com.jpegsinng.mercadolivro.exception
 
-class NotFoundException(
+class BadRequestException(
     override val message: String, val errorCode: String) : Exception() {
 
 }

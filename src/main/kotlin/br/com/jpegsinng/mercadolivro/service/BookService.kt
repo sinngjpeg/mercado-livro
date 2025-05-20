@@ -1,6 +1,8 @@
 package br.com.jpegsinng.mercadolivro.service
 
 import br.com.jpegsinng.mercadolivro.enums.BookStatus
+import br.com.jpegsinng.mercadolivro.enums.Errors
+import br.com.jpegsinng.mercadolivro.exception.NotFoundException
 import br.com.jpegsinng.mercadolivro.model.BookModel
 import br.com.jpegsinng.mercadolivro.model.CustomerModel
 import br.com.jpegsinng.mercadolivro.repository.BookRepository
@@ -26,7 +28,8 @@ class BookService(
     }
 
     fun findById(id: Int): BookModel {
-        return bookRepository.findById(id).orElseThrow()
+        return bookRepository.findById(id)
+            .orElseThrow { NotFoundException(Errors.ML101.message.format(id), Errors.ML101.code) }
     }
 
     fun delete(id: Int) {
@@ -43,7 +46,7 @@ class BookService(
 
     fun deleteByCustomer(customer: CustomerModel) {
         val books = bookRepository.findByCustomer(customer)
-        for(book in books) {
+        for (book in books) {
             book.status = BookStatus.DELETADO
         }
         bookRepository.saveAll(books)
