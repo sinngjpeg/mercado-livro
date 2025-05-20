@@ -21,7 +21,7 @@ class CustomerService(
         customerRepository.save(customer)
     }
 
-    fun getCustomer(id: Int): CustomerModel {
+    fun getById(id: Int): CustomerModel {
         return customerRepository.findById(id).orElseThrow()
     }
 
@@ -29,7 +29,6 @@ class CustomerService(
         if(!customerRepository.existsById(customer.id!!)){
             throw Exception()
         }
-
         customerRepository.save(customer)
     }
 
@@ -37,8 +36,6 @@ class CustomerService(
         if(!customerRepository.existsById(id)){
             throw Exception()
         }
-
         customerRepository.deleteById(id)
     }
-
 }
