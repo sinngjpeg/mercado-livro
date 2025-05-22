@@ -2,6 +2,7 @@ package br.com.jpegsinng.mercadolivro.service
 
 import br.com.jpegsinng.mercadolivro.enums.CustomerStatus
 import br.com.jpegsinng.mercadolivro.enums.Errors
+import br.com.jpegsinng.mercadolivro.enums.Profile
 import br.com.jpegsinng.mercadolivro.exception.NotFoundException
 import br.com.jpegsinng.mercadolivro.model.CustomerModel
 import br.com.jpegsinng.mercadolivro.repository.CustomerRepository
@@ -23,7 +24,10 @@ class CustomerService(
     }
 
     fun create(customer: CustomerModel) {
-        customerRepository.save(customer)
+        val customerCopy = customer.copy(
+            roles = setOf(Profile.CUSTOMER),
+        )
+        customerRepository.save(customerCopy)
     }
 
     fun findById(id: Int): CustomerModel {
