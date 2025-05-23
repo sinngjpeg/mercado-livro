@@ -28,8 +28,7 @@ class BookService(
     }
 
     fun findById(id: Int): BookModel {
-        return bookRepository.findById(id)
-            .orElseThrow { NotFoundException(Errors.ML101.message.format(id), Errors.ML101.code) }
+        return bookRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML101.message.format(id), Errors.ML101.code) }
     }
 
     fun delete(id: Int) {
@@ -46,7 +45,7 @@ class BookService(
 
     fun deleteByCustomer(customer: CustomerModel) {
         val books = bookRepository.findByCustomer(customer)
-        for (book in books) {
+        for(book in books) {
             book.status = BookStatus.DELETADO
         }
         bookRepository.saveAll(books)
@@ -62,4 +61,7 @@ class BookService(
         }
         bookRepository.saveAll(books)
     }
+
+
 }
+

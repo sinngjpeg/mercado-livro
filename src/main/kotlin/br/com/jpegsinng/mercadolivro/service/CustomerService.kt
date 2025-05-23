@@ -2,19 +2,16 @@ package br.com.jpegsinng.mercadolivro.service
 
 import br.com.jpegsinng.mercadolivro.enums.CustomerStatus
 import br.com.jpegsinng.mercadolivro.enums.Errors
-import br.com.jpegsinng.mercadolivro.enums.Profile
+import br.com.jpegsinng.mercadolivro.enums.Role
 import br.com.jpegsinng.mercadolivro.exception.NotFoundException
 import br.com.jpegsinng.mercadolivro.model.CustomerModel
 import br.com.jpegsinng.mercadolivro.repository.CustomerRepository
-import br.com.jpegsinng.mercadolivro.validation.EmailAvailableValidator
-import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import java.lang.Exception
 
 @Service
 class CustomerService(
-    private val customerRepository: CustomerRepository,
+    val customerRepository: CustomerRepository,
     private val bookService: BookService,
     private val bCrypt: BCryptPasswordEncoder
 ) {
@@ -28,19 +25,18 @@ class CustomerService(
 
     fun create(customer: CustomerModel) {
         val customerCopy = customer.copy(
-            roles = setOf(Profile.CUSTOMER),
+            roles = setOf(Role.CUSTOMER),
             password = bCrypt.encode(customer.password)
         )
         customerRepository.save(customerCopy)
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id)
-            .orElseThrow { NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
+        return customerRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
     }
 
     fun update(customer: CustomerModel) {
-        if (!customerRepository.existsById(customer.id!!)) {
+        if(!customerRepository.existsById(customer.id!!)){
             throw Exception()
         }
 

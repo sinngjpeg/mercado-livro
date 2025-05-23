@@ -13,7 +13,6 @@ import org.springframework.web.context.request.WebRequest
 @ControllerAdvice
 class ControllerAdvice {
 
-
     @ExceptionHandler(NotFoundException::class)
     fun handleNotFoundException(ex: NotFoundException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val erro = ErrorResponse(
@@ -22,6 +21,7 @@ class ControllerAdvice {
             ex.errorCode,
             null
         )
+
         return ResponseEntity(erro, HttpStatus.NOT_FOUND)
     }
 
@@ -33,20 +33,19 @@ class ControllerAdvice {
             ex.errorCode,
             null
         )
+
         return ResponseEntity(erro, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleMethodArgumentNotValidException(
-        ex: MethodArgumentNotValidException,
-        request: WebRequest
-    ): ResponseEntity<ErrorResponse> {
+    fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val erro = ErrorResponse(
             HttpStatus.UNPROCESSABLE_ENTITY.value(),
             Errors.ML001.message,
             Errors.ML001.code,
             ex.bindingResult.fieldErrors.map { FieldErrorResponse(it.defaultMessage ?: "invalid", it.field) }
         )
-        return ResponseEntity(erro, HttpStatus.BAD_REQUEST)
+
+        return ResponseEntity(erro, HttpStatus.UNPROCESSABLE_ENTITY)
     }
 }

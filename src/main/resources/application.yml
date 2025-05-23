@@ -11,3 +11,7 @@ spring:
       matching-strategy: ant_path_matcher
   jackson:
     default-property-inclusion: non_null
+
+jwt:
+  secret: 13ecf667-99e1-4cd1-8ed3-0569eb70a60e
+  expiration: 999999
