@@ -21,4 +21,6 @@ class GenerateNfeListener(
         val purchaseModel = purchaseEvent.purchaseModel.copy(nfe = nfe)
         purchaseService.update(purchaseModel)
     }
+
 }
+

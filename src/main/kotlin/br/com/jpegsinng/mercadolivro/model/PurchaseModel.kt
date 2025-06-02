@@ -1,16 +1,17 @@
 package br.com.jpegsinng.mercadolivro.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinTable
-import jakarta.persistence.ManyToMany
-import jakarta.persistence.ManyToOne
+
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Entity(name = "purchase")
 data class PurchaseModel(
@@ -24,11 +25,9 @@ data class PurchaseModel(
     val customer: CustomerModel,
 
     @ManyToMany
-    @JoinTable(
-        name = "purchase_book",
+    @JoinTable(name = "purchase_book",
         joinColumns = [JoinColumn(name = "purchase_id")],
-        inverseJoinColumns = [JoinColumn(name = "book_id")]
-    )
+        inverseJoinColumns = [JoinColumn(name = "book_id")])
     val books: MutableList<BookModel>,
 
     @Column
@@ -39,6 +38,5 @@ data class PurchaseModel(
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime = LocalDateTime.now()
-
-
 )
+

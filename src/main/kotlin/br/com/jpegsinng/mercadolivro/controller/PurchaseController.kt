@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@RequestMapping("purchase")
+@RequestMapping("purchases")
 class PurchaseController(
     private val purchaseService: PurchaseService,
     private val purchaseMapper: PurchaseMapper
@@ -20,7 +20,7 @@ class PurchaseController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun purchase(@RequestBody request: PostPurchaseRequest) {
+    fun purchase(@RequestBody request: PostPurchaseRequest){
         purchaseService.create(purchaseMapper.toModel(request))
     }
 
