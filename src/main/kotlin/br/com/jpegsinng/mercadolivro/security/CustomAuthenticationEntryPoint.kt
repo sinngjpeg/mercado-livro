@@ -1,4 +1,4 @@
-package br.com.jpegsinng.mercadolivro.config
+package br.com.jpegsinng.mercadolivro.security
 
 import br.com.jpegsinng.mercadolivro.controller.response.ErrorResponse
 import br.com.jpegsinng.mercadolivro.enums.Errors
@@ -22,6 +22,5 @@ class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
         val errorResponse =
             ErrorResponse(HttpStatus.UNAUTHORIZED.value(), Errors.ML000.message, Errors.ML000.code, null)
         response.outputStream.print(jacksonObjectMapper().writeValueAsString(errorResponse))
-
     }
 }

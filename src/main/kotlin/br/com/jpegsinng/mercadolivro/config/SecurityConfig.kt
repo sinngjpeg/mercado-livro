@@ -4,6 +4,7 @@ import br.com.jpegsinng.mercadolivro.enums.Role
 import br.com.jpegsinng.mercadolivro.repository.CustomerRepository
 import br.com.jpegsinng.mercadolivro.security.AuthenticationFilter
 import br.com.jpegsinng.mercadolivro.security.AuthorizationFilter
+import br.com.jpegsinng.mercadolivro.security.CustomAuthenticationEntryPoint
 import br.com.jpegsinng.mercadolivro.security.JwtUtil
 import br.com.jpegsinng.mercadolivro.service.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
@@ -38,12 +39,12 @@ class SecurityConfig(
         "/customers"
     )
 
-    private val ADMIN_MATCHERS = arrayOf(
-        "/admin/**"
-    )
-
     private val PUBLIC_GET_MATCHERS = arrayOf(
         "/books"
+    )
+
+    private val ADMIN_MATCHERS = arrayOf(
+        "/admin/**"
     )
 
     override fun configure(auth: AuthenticationManagerBuilder) {
@@ -55,8 +56,8 @@ class SecurityConfig(
         http.authorizeRequests()
             .antMatchers(*PUBLIC_MATCHERS).permitAll()
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
-            .antMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
             .antMatchers(HttpMethod.GET, *PUBLIC_GET_MATCHERS).permitAll()
+            .antMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
@@ -74,7 +75,7 @@ class SecurityConfig(
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true
-        config.addAllowedOriginPattern("*")
+        config.addAllowedOrigin("*")
         config.addAllowedHeader("*")
         config.addAllowedMethod("*")
         source.registerCorsConfiguration("/**", config)

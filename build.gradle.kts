@@ -6,15 +6,13 @@ plugins {
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
     kotlin("plugin.jpa") version "1.4.21"
+    jacoco
 }
 
 group = "com.mercadolivro"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-repositories {
-    mavenCentral()
-}
 
 repositories {
     mavenCentral()
@@ -38,6 +36,9 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test:5.5.2")
+    testImplementation("io.mockk:mockk:1.12.0")
+
 }
 
 tasks.withType<KotlinCompile> {

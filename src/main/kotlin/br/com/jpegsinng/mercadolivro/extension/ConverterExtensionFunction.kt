@@ -12,7 +12,6 @@ import br.com.jpegsinng.mercadolivro.enums.CustomerStatus
 import br.com.jpegsinng.mercadolivro.model.BookModel
 import br.com.jpegsinng.mercadolivro.model.CustomerModel
 import org.springframework.data.domain.Page
-import java.awt.print.Book
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {
     return CustomerModel(
@@ -76,6 +75,5 @@ fun <T> Page<T>.toPageResponse(): PageResponse<T> {
         this.content,
         this.number,
         this.totalElements,
-        this.totalPages
-    )
+        this.totalPages)
 }

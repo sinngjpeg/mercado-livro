@@ -26,7 +26,6 @@ class SwaggerConfig {
             ApiInfoBuilder()
                 .title("Mercado Livro")
                 .description("Api do Mercado Livro")
-                .build()
-        )
+                .build())
 
 }

@@ -57,4 +57,9 @@ class BookController(
         bookService.update(book.toBookModel(bookSaved))
     }
 
+
+    fun soma(a: Int, b: Int): Int {
+        return a + b
+    }
+
 }
