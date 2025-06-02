@@ -11,9 +11,9 @@ Projeto desenvolvido com **Spring Boot** e **Kotlin** que simula um serviço de 
 - [Kotlin](https://kotlinlang.org/)
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-- [Spring Security](https://spring.io/projects/spring-security) *(opcional)*
-- [H2 Database](https://www.h2database.com/) *(ou outro banco)*
-- [Flyway](https://flywaydb.org/) *(opcional)*
+- [Spring Security](https://spring.io/projects/spring-security) 
+- [MySQL](https://www.mysql.com/) 
+- [Flyway](https://flywaydb.org/) 
 - [JUnit5](https://junit.org/junit5/) e [MockK](https://mockk.io/)
 - [Gradle](https://gradle.org/)
 
@@ -21,8 +21,8 @@ Projeto desenvolvido com **Spring Boot** e **Kotlin** que simula um serviço de 
 
 ## 📦 Requisitos
 
-- Java 17+
-- Gradle 7+
+- Java 11+
+- Gradle 6+
 - IDE como IntelliJ IDEA ou VS Code
 
 ---
